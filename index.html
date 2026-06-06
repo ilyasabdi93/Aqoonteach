@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Portfolio | Ethical Hacker & Pentester</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #00ff88;
+            --accent-hover: #00cc6a;
+            --accent-glow: rgba(0, 255, 136, 0.3);
+            --border: #1e293b;
+            --nav-bg: rgba(10, 14, 23, 0.95);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --fiverr-green: #1dbf73;
+            --fiverr-dark: #0d084d;
+        }
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #059669;
+            --accent-hover: #047857;
+            --accent-glow: rgba(5, 150, 105, 0.3);
+            --border: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        section {
+            padding: 100px 0;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .section-title span { color: var(--accent); }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #0a0e17;
+        }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .glow { box-shadow: 0 0 40px var(--accent-glow); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled { border-bottom-color: var(--border); box-shadow: var(--shadow); }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo i { color: var(--accent); }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { background: var(--bg-card); color: var(--accent); }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== FIVERR-STYLE HERO ===== */
+        .fiverr-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0d084d 0%, #1a1a6e 50%, #0a0e17 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        [data-theme="light"] .fiverr-hero {
+            background: linear-gradient(135deg, #0d084d 0%, #1a1a6e 50%, #1e293b 100%);
+        }
+        .fiverr-hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(29, 191, 115, 0.15), transparent 70%);
+            pointer-events: none;
+            animation: floatGlow 8s ease-in-out infinite alternate;
+        }
+        .fiverr-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.08), transparent 70%);
+            pointer-events: none;
+            animation: floatGlow 10s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            100% { transform: translate(-60px, 60px) scale(1.15); opacity: 0.6; }
+        }
+        .fiverr-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .fiverr-content h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .fiverr-content h1 .highlight {
+            background: linear-gradient(135deg, #1dbf73, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .fiverr-content h1 .italic {
+            font-style: italic;
+            font-weight: 400;
+            color: #1dbf73;
+            -webkit-text-fill-color: #1dbf73;
+        }
+        .fiverr-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 520px;
+            margin-bottom: 32px;
+        }
+        .fiverr-search {
+            display: flex;
+            max-width: 560px;
+            background: #ffffff;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+        }
+        .fiverr-search input {
+            flex: 1;
+            padding: 18px 24px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            color: #333;
+            background: transparent;
+        }
+        .fiverr-search input::placeholder { color: #999; }
+        .fiverr-search button {
+            padding: 18px 36px;
+            background: #1dbf73;
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .fiverr-search button:hover { background: #19a463; }
+        .fiverr-trust {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+        .fiverr-trust span {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .fiverr-trust .logos {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .fiverr-trust .logos i {
+            font-size: 1.8rem;
+            color: rgba(255,255,255,0.3);
+            transition: color 0.3s ease;
+        }
+        .fiverr-trust .logos i:hover { color: rgba(255,255,255,0.6); }
+        .fiverr-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .fiverr-photo-wrapper {
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            border: 4px solid #1dbf73;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 80px rgba(29, 191, 115, 0.3);
+        }
+        .fiverr-photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .fiverr-photo-wrapper .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            font-size: 8rem;
+            color: #1dbf73;
+        }
+        .fiverr-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+        .fiverr-badge .dot {
+            width: 10px;
+            height: 10px;
+            background: #1dbf73;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .fiverr-stats-row {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .fiverr-stat {
+            text-align: center;
+        }
+        .fiverr-stat .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1dbf73;
+        }
+        .fiverr-stat .lbl {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== CATEGORIES SECTION (Fiverr Style) ===== */
+        .categories {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+        .categories h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+        .categories h2 span { color: var(--accent); }
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .cat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .cat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,255,136,0.08);
+        }
+        .cat-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .cat-card h4 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .stat-card .number { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat-card .label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin-top: 32px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+        }
+        .timeline-item h4 { font-size: 1.1rem; margin-bottom: 4px; }
+        .timeline-item .date { font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; }
+        .timeline-item p { font-size: 0.95rem; color: var(--text-secondary); }
+        .swiper {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .swiper-slide {
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            font-size: 3rem;
+            color: var(--accent);
+            flex-direction: column;
+            gap: 16px;
+        }
+        .swiper-pagination-bullet-active { background: var(--accent) !important; }
+
+        /* ===== TOOLS ===== */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .tool-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px var(--accent-glow);
+        }
+        .tool-card .tool-icon { font-size: 3rem; color: var(--accent); margin-bottom: 16px; }
+        .tool-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .tool-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; }
+        .tool-card .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .tool-card .tool-link:hover { text-decoration: underline; }
+
+        /* ===== PROJECTS ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.08);
+        }
+        .project-thumb {
+            height: 200px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-thumb .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .project-card:hover .overlay { opacity: 1; }
+        .project-thumb .overlay a {
+            padding: 12px 24px;
+            background: var(--accent);
+            color: #0a0e17;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .project-body { padding: 24px; }
+        .project-body h3 { font-size: 1.25rem; margin-bottom: 8px; }
+        .project-body p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .project-tags span {
+            padding: 4px 14px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .project-tags span.primary { border-color: var(--accent); color: var(--accent); }
+
+        /* ===== RESUME ===== */
+        .resume-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+        .resume-preview {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .resume-preview i { font-size: 5rem; color: var(--accent); }
+        .resume-preview p { color: var(--text-secondary); }
+
+        /* ===== AUTH MODAL (Login / Sign Up) ===== */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-modal.active { display: flex; }
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        }
+        .auth-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .auth-close:hover { color: var(--accent); }
+        .auth-box .logo {
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .auth-box h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+        .auth-box .sub {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+        }
+        .auth-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 28px;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 4px;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .auth-tab.active {
+            background: var(--accent);
+            color: #0a0e17;
+        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .auth-form .form-group { margin-bottom: 18px; }
+        .auth-form label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+        .auth-form input:focus { border-color: var(--accent); }
+        .auth-form .btn { width: 100%; justify-content: center; margin-top: 8px; }
+        .auth-form .error-msg {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+        .auth-form .error-msg.show { display: block; }
+        .auth-form .success-msg {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+        .auth-form .success-msg.show { display: block; }
+        .auth-divider {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            position: relative;
+        }
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: var(--border);
+        }
+        .auth-divider::before { left: 0; }
+        .auth-divider::after { right: 0; }
+        .social-auth {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .social-auth button {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .social-auth button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .auth-footer-text {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .auth-footer-text a {
+            color: var(--accent);
+            cursor: pointer;
+        }
+        .auth-footer-text a:hover { text-decoration: underline; }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        .contact-info h3 { font-size: 1.8rem; margin-bottom: 16px; }
+        .contact-info p { color: var(--text-secondary); margin-bottom: 32px; }
+        .contact-details { display: flex; flex-direction: column; gap: 20px; }
+        .contact-item { display: flex; align-items: center; gap: 16px; }
+        .contact-item .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        .contact-item .info h4 { font-size: 0.9rem; }
+        .contact-item .info p { font-size: 0.85rem; margin: 0; color: var(--text-secondary); }
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        .contact-form .form-group { margin-bottom: 20px; }
+        .contact-form label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+            font-family: inherit;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus { border-color: var(--accent); }
+        .contact-form textarea { height: 140px; resize: vertical; }
+        .contact-form .btn { width: 100%; justify-content: center; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .footer p { color: var(--text-secondary); font-size: 0.9rem; }
+        .footer-links { display: flex; gap: 20px; }
+        .footer-links a {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .fiverr-content h1 { font-size: 2.8rem; }
+            .fiverr-grid { gap: 40px; }
+            .fiverr-photo-wrapper { width: 300px; height: 300px; }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--nav-bg);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 32px 24px;
+                gap: 20px;
+                transform: translateY(-120%);
+                transition: transform 0.4s ease;
+                border-bottom: 1px solid var(--border);
+                z-index: 999;
+            }
+            .nav-links.active { transform: translateY(0); }
+            .fiverr-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .fiverr-content p { margin: 0 auto 32px; }
+            .fiverr-search { margin: 0 auto; }
+            .fiverr-trust { justify-content: center; }
+            .fiverr-stats-row { justify-content: center; }
+            .fiverr-content h1 { font-size: 2.2rem; }
+            .fiverr-photo-wrapper { width: 220px; height: 220px; }
+            .fiverr-photo-wrapper .photo-placeholder { font-size: 5rem; }
+            .fiverr-badge { display: none; }
+            .fiverr-hero::before, .fiverr-hero::after { display: none; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-stats { grid-template-columns: repeat(2, 1fr); }
+            .section-title { font-size: 2rem; }
+            .resume-preview { height: 400px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .cat-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .fiverr-content h1 { font-size: 1.8rem; }
+            .fiverr-photo-wrapper { width: 180px; height: 180px; }
+            .fiverr-photo-wrapper .photo-placeholder { font-size: 3.5rem; }
+            .fiverr-stats-row { gap: 20px; }
+            .fiverr-stat .num { font-size: 1.5rem; }
+            .about-stats { grid-template-columns: 1fr; }
+            .contact-form { padding: 24px; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .auth-box { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>Cyber</span>Sec
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== FIVERR-STYLE HERO ===== -->
+    <section class="fiverr-hero" id="home">
+        <div class="container">
+            <div class="fiverr-grid">
+                <div class="fiverr-content">
+                    <h1>
+                        Find the perfect <br>
+                        <span class="italic">cybersecurity</span> <br>
+                        <span class="highlight">professional</span> for your business
+                    </h1>
+                    <p>Expert penetration testing, vulnerability assessment, and red team operations — from a certified ethical hacker with 5+ years of experience.</p>
+                    <div class="fiverr-search">
+                        <input type="text" placeholder="Search for security services..." id="heroSearch" onkeydown="if(event.key==='Enter') alert('Searching for: ' + this.value)">
+                        <button onclick="const s=document.getElementById('heroSearch');if(s.value.trim())alert('Searching for: '+s.value);else alert('Please enter a search term.')"><i class="fas fa-magnifying-glass"></i> Search</button>
+                    </div>
+                    <div class="fiverr-trust">
+                        <span>TRUSTED BY</span>
+                        <div class="logos">
+                            <i class="fab fa-meta" title="Meta"></i>
+                            <i class="fab fa-google" title="Google"></i>
+                            <i class="fab fa-amazon" title="AWS"></i>
+                            <i class="fab fa-microsoft" title="Microsoft"></i>
+                        </div>
+                    </div>
+                    <div class="fiverr-stats-row">
+                        <div class="fiverr-stat">
+                            <div class="num">50+</div>
+                            <div class="lbl">Projects Done</div>
+                        </div>
+                        <div class="fiverr-stat">
+                            <div class="num">200+</div>
+                            <div class="lbl">Vulns Found</div>
+                        </div>
+                        <div class="fiverr-stat">
+                            <div class="num">99%</div>
+                            <div class="lbl">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fiverr-image">
+                    <div class="fiverr-photo-wrapper" id="heroPhoto">
+                        <!-- Replace the placeholder div below with your <img> tag -->
+                        <div class="photo-placeholder">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <!-- ===== UNCOMMENT BELOW AND ADD YOUR PHOTO ===== -->
+                        <!-- <img src="your-photo.jpg" alt="Your Name - Ethical Hacker"> -->
+                    </div>
+                    <div class="fiverr-badge">
+                        <span class="dot"></span>
+                        <span>Available for work</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CATEGORIES (Fiverr Style) ===== -->
+    <section class="categories">
+        <div class="container">
+            <h2>My <span>Services</span></h2>
+            <div class="cat-grid">
+                <div class="cat-card">
+                    <i class="fas fa-shield-halved"></i>
+                    <h4>Penetration Testing</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-globe"></i>
+                    <h4>Web App Security</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h4>Network Assessment</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-wifi"></i>
+                    <h4>WiFi Auditing</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-cloud"></i>
+                    <h4>Cloud Security</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-robot"></i>
+                    <h4>Social Engineering</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-file-shield"></i>
+                    <h4>Compliance Audit</h4>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-bug"></i>
+                    <h4>Bug Bounty</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About <span>Me</span></h2>
+            <p class="section-subtitle">Passionate about breaking things to make them stronger</p>
+            <div class="about-grid">
+                <div>
+                    <div class="about-text">
+                        <h2>Dedicated to <span style="color:var(--accent)">Cybersecurity</span> Excellence</h2>
+                        <p>With over 5+ years in offensive security, I've helped organizations identify and remediate critical vulnerabilities across web applications, networks, and cloud infrastructure. My approach combines deep technical expertise with a hacker's mindset.</p>
+                        <p>I specialize in web application penetration testing, network infrastructure assessment, social engineering engagements, and red team operations. I hold multiple industry certifications and constantly research emerging threats.</p>
+                        <div class="about-stats">
+                            <div class="stat-card">
+                                <div class="number">50+</div>
+                                <div class="label">Pentest Projects</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="number">200+</div>
+                                <div class="label">Vulnerabilities Found</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="number">99%</div>
+                                <div class="label">Client Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>Senior Penetration Tester</h4>
+                            <div class="date">2022 - Present</div>
+                            <p>Lead red team operations and web application assessments for Fortune 500 clients.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Security Consultant</h4>
+                            <div class="date">2020 - 2022</div>
+                            <p>Performed network penetration tests, social engineering campaigns, and security audits.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Junior Pentester</h4>
+                            <div class="date">2018 - 2020</div>
+                            <p>Started career in offensive security, earned OSCP and CEH certifications.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="swiper" id="aboutSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><i class="fas fa-shield-halved"></i> Security Operations</div>
+                            <div class="swiper-slide"><i class="fas fa-network-wired"></i> Network Pentesting</div>
+                            <div class="swiper-slide"><i class="fas fa-bug"></i> Bug Bounty Hunter</div>
+                            <div class="swiper-slide"><i class="fas fa-laptop-code"></i> Red Teaming</div>
+                            <div class="swiper-slide"><i class="fas fa-cloud"></i> Cloud Security</div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <br>
+                    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:20px;">
+                        <h4 style="margin-bottom:8px;">&#128214; Certifications</h4>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                            <span style="padding:4px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:50px;font-size:0.8rem;">OSCP</span>
+                            <span style="padding:4px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:50px;font-size:0.8rem;">CEH</span>
+                            <span style="padding:4px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:50px;font-size:0.8rem;">PNPT</span>
+                            <span style="padding:4px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:50px;font-size:0.8rem;">eCPPT</span>
+                            <span style="padding:4px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:50px;font-size:0.8rem;">CRTP</span>
+                            <span style="padding:4px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:50px;font-size:0.8rem;">OSWP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TOOLS ===== -->
+    <section id="tools" style="background:var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Cyber Security <span>Tools</span></h2>
+            <p class="section-subtitle">Open-source tools I contribute to and use in my security assessments</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Aircrack-ng</h3>
+                    <p>Complete suite of tools to assess WiFi network security — monitoring, attacking, testing, and cracking.</p>
+                    <a href="https://github.com/aircrack-ng/aircrack-ng" target="_blank" class="tool-link">
+                        <i class="fab fa-github"></i> GitHub Repo <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Wireshark</h3>
+                    <p>World's foremost network protocol analyzer. Deep inspection of hundreds of protocols for network forensics.</p>
+                    <a href="https://github.com/wireshark/wireshark" target="_blank" class="tool-link">
+                        <i class="fab fa-github"></i> GitHub Repo <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-fire"></i></div>
+                    <h3>Firecrack</h3>
+                    <p>Facebook security testing tool for authorized assessments. Multi-functional pentest utility for social platforms.</p>
+                    <a href="https://github.com/Ranginang67/Firecrack" target="_blank" class="tool-link">
+                        <i class="fab fa-github"></i> GitHub Repo <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-ghost"></i></div>
+                    <h3>GhostShell</h3>
+                    <p>Interactive anonymous shell using Proxychains + Tor. Execute commands with rotating proxies for privacy.</p>
+                    <a href="https://github.com/S12cybersecurity/GhostShell" target="_blank" class="tool-link">
+                        <i class="fab fa-github"></i> GitHub Repo <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fab fa-python"></i></div>
+                    <h3>Fikrado</h3>
+                    <p>Facebook security testing framework written in Python. Fast, user-friendly tool for authorized assessments.</p>
+                    <a href="https://github.com/fikrado/fikrado.py" target="_blank" class="tool-link">
+                        <i class="fab fa-github"></i> GitHub Repo <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+                    <h3>Custom Toolkit</h3>
+                    <p>Proprietary scripts and automation frameworks for recon, exploitation, and post-exploitation phases.</p>
+                    <a href="#contact" class="tool-link">
+                        <i class="fas fa-lock"></i> Request Access <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured <span>Projects</span></h2>
+            <p class="section-subtitle">Real-world security tools and platforms I've built or contributed to</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <i class="fas fa-shield-halved"></i>
+                        <div class="overlay"><a href="https://github.com/aircrack-ng/aircrack-ng" target="_blank"><i class="fab fa-github"></i> View Repo</a></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>WiFi Security Suite</h3>
+                        <p>Comprehensive wireless security auditing toolkit. Packet capture, WEP/WPA cracking, and network monitoring.</p>
+                        <div class="project-tags"><span class="primary">C</span><span>WiFi</span><span>Security</span><span>Network</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <i class="fas fa-ghost"></i>
+                        <div class="overlay"><a href="https://github.com/S12cybersecurity/GhostShell" target="_blank"><i class="fab fa-github"></i> View Repo</a></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>GhostShell Framework</h3>
+                        <p>Anonymous command execution shell with Tor proxy rotation. Built for privacy-focused security testing.</p>
+                        <div class="project-tags"><span class="primary">Bash</span><span>Anonymity</span><span>Tor</span><span>Proxy</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <i class="fas fa-fire"></i>
+                        <div class="overlay"><a href="https://github.com/Ranginang67/Firecrack" target="_blank"><i class="fab fa-github"></i> View Repo</a></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Firecrack</h3>
+                        <p>Social platform security assessment tool for authorized penetration testing engagements.</p>
+                        <div class="project-tags"><span class="primary">Python</span><span>Security</span><span>Testing</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <i class="fab fa-python"></i>
+                        <div class="overlay"><a href="https://github.com/fikrado/fikrado.py" target="_blank"><i class="fab fa-github"></i> View Repo</a></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Fikrado Framework</h3>
+                        <p>Python-based pentesting framework for social platform security analysis and authorized assessments.</p>
+                        <div class="project-tags"><span class="primary">Python</span><span>API</span><span>Automation</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <i class="fas fa-eye"></i>
+                        <div class="overlay"><a href="https://github.com/wireshark/wireshark" target="_blank"><i class="fab fa-github"></i> View Repo</a></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Protocol Analyzer</h3>
+                        <p>Network traffic inspection and forensics. Deep packet inspection, protocol dissection, and traffic analysis.</p>
+                        <div class="project-tags"><span class="primary">C</span><span>Network</span><span>Forensics</span><span>Analysis</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <i class="fas fa-server"></i>
+                        <div class="overlay"><a href="#contact"><i class="fas fa-lock"></i> Request Demo</a></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Red Team C2 Framework</h3>
+                        <p>Custom command & control infrastructure for red team operations with modular agent architecture.</p>
+                        <div class="project-tags"><span class="primary">Go</span><span>C2</span><span>Red Team</span><span>Stealth</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RESUME ===== -->
+    <section id="resume" style="background:var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">My <span>Resume</span></h2>
+            <p class="section-subtitle">Download my full professional background and certifications</p>
+            <div class="resume-wrapper">
+                <div class="resume-preview">
+                    <i class="fas fa-file-pdf"></i>
+                    <p>Resume Preview — Click download to view the full document</p>
+                    <a href="#" class="btn btn-primary" id="downloadResume" download>
+                        <i class="fas fa-download"></i> Download Resume (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            <p class="section-subtitle">Ready to assess your security posture? Let's talk.</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>I'm available for penetration testing engagements, security consulting, and collaboration on open-source security tools.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-phone"></i></div>
+                            <div class="info">
+                                <h4>Phone</h4>
+                                <p>+252 68 239 0000</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info">
+                                <h4>Email</h4>
+                                <p>contact@cybersec-portfolio.io</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-location-dot"></i></div>
+                            <div class="info">
+                                <h4>Address</h4>
+                                <p>Mogadishu, Somalia — Remote Worldwide</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-clock"></i></div>
+                            <div class="info">
+                                <h4>Availability</h4>
+                                <p>Mon - Fri: 09:00 - 18:00 EAT</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" placeholder="Pentest Engagement Inquiry">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Tell me about your security assessment needs..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 CyberSec Portfolio — Built with <i class="fas fa-heart" style="color:var(--accent);"></i> for security</p>
+                <div class="footer-links">
+                    <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== AUTH MODAL (Login / Sign Up) ===== -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-box">
+            <button class="auth-close" id="authClose">&times;</button>
+            <a href="#" class="logo" style="justify-content:center;margin-bottom:8px;">
+                <i class="fas fa-shield-halved"></i>
+                <span>Cyber</span>Sec
+            </a>
+            <h2>Welcome Back</h2>
+            <p class="sub" id="authSubtitle">Sign in to access your dashboard</p>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Sign In</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-right-to-bracket"></i> Sign In</button>
+                <div class="error-msg" id="loginError">Invalid email or password. Try again.</div>
+                <div class="success-msg" id="loginSuccess">Login successful! Redirecting...</div>
+                <div class="auth-divider">or continue with</div>
+                <div class="social-auth">
+                    <button type="button" onclick="alert('Google Auth Coming Soon')"><i class="fab fa-google"></i></button>
+                    <button type="button" onclick="alert('GitHub Auth Coming Soon')"><i class="fab fa-github"></i></button>
+                    <button type="button" onclick="alert('Twitter Auth Coming Soon')"><i class="fab fa-x-twitter"></i></button>
+                </div>
+                <div class="auth-footer-text">
+                    Don't have an account? <a id="switchToSignup">Sign up for free</a>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a strong password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirm">Confirm Password</label>
+                    <input type="password" id="signupConfirm" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account</button>
+                <div class="error-msg" id="signupError">Passwords don't match or invalid input.</div>
+                <div class="success-msg" id="signupSuccess">Account created! You can now sign in.</div>
+                <div class="auth-divider">or continue with</div>
+                <div class="social-auth">
+                    <button type="button" onclick="alert('Google Auth Coming Soon')"><i class="fab fa-google"></i></button>
+                    <button type="button" onclick="alert('GitHub Auth Coming Soon')"><i class="fab fa-github"></i></button>
+                    <button type="button" onclick="alert('Twitter Auth Coming Soon')"><i class="fab fa-x-twitter"></i></button>
+                </div>
+                <div class="auth-footer-text">
+                    Already have an account? <a id="switchToLogin">Sign in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // ===== THEME TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcon(next);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            icon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== HAMBURGER MENU =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ===== SWIPER =====
+        const swiper = new Swiper('#aboutSwiper', {
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            effect: 'slide',
+            speed: 800,
+        });
+
+        // ===== RESUME DOWNLOAD =====
+        document.getElementById('downloadResume').addEventListener('click', (e) => {
+            e.preventDefault();
+            const resumeContent = `
+        ==========================================
+                 CYBERSECURITY PROFESSIONAL
+        ==========================================
+        CONTACT:
+        Email: iliyasabdi7431@gmail.com
+        Phone: +252 68 239 0000
+        Address: Mogadishu, Somalia 
+
+        SUMMARY:
+        Certified ethical hacker with 5+ years of experience in
+        penetration testing, vulnerability assessment, and red team
+        operations. Proven track record of securing enterprise
+        infrastructure and web applications.
+
+        EXPERIENCE:
+        Senior Penetration Tester (2022 - Present)
+        - Lead red team operations for Fortune 500 clients
+        - Conduct web application and network pentests
+        - Develop custom exploitation tools and frameworks
+
+        Security Consultant (2020 - 2022)
+        - Performed network penetration tests
+        - Social engineering campaign management
+        - Security audit and compliance assessments
+
+        Junior Pentester (2018 - 2020)
+        - Web application vulnerability assessments
+        - Report writing and remediation guidance
+        - Earned OSCP and CEH certifications
+
+        CERTIFICATIONS:
+        - OSCP, CEH, PNPT, eCPPT, CRTP, OSWP
+
+        TOOLSET:
+        Aircrack-ng, Wireshark, Burp Suite, Metasploit, Nmap,
+        GhostShell, Firecrack, Fikrado, C2 Frameworks, BloodHound,
+        Impacket, CrackMapExec, and custom toolkits.
+        ==========================================
+            `;
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'CyberSec_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // ===== AUTH MODAL =====
+        const authModal = document.getElementById('authModal');
+        const authClose = document.getElementById('authClose');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+
+        // Open modal on page load (if user clicks login anywhere)
+        // We'll add a floating login button or you can trigger it manually
+        const style = document.createElement('style');
+        style.textContent = `
+            .floating-login-btn {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                z-index: 999;
+                background: var(--accent);
+                color: #0a0e17;
+                border: none;
+                border-radius: 50px;
+                padding: 16px 28px;
+                font-weight: 700;
+                font-size: 1rem;
+                cursor: pointer;
+                box-shadow: 0 8px 30px var(--accent-glow);
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .floating-login-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 40px var(--accent-glow);
+            }
+            @media (max-width: 480px) {
+                .floating-login-btn {
+                    bottom: 16px;
+                    right: 16px;
+                    padding: 12px 20px;
+                    font-size: 0.85rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        const loginBtn = document.createElement('button');
+        loginBtn.className = 'floating-login-btn';
+        loginBtn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Sign In / Join';
+        loginBtn.onclick = () => authModal.classList.add('active');
+        document.body.appendChild(loginBtn);
+
+        authClose.onclick = () => authModal.classList.remove('active');
+        authModal.onclick = (e) => {
+            if (e.target === authModal) authModal.classList.remove('active');
+        };
+
+        // Tab switching
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const target = tab.dataset.tab;
+                document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                if (target === 'login') {
+                    loginForm.classList.add('active');
+                    document.querySelector('.auth-box h2').textContent = 'Welcome Back';
+                    document.getElementById('authSubtitle').textContent = 'Sign in to access your dashboard';
+                } else {
+                    signupForm.classList.add('active');
+                    document.querySelector('.auth-box h2').textContent = 'Create Account';
+                    document.getElementById('authSubtitle').textContent = 'Sign up for free and get started';
+                }
+            });
+        });
+
+        switchToSignup.onclick = (e) => {
+            e.preventDefault();
+            authTabs[1].click();
+        };
+        switchToLogin.onclick = (e) => {
+            e.preventDefault();
+            authTabs[0].click();
+        };
+
+        // ===== LOGIN VALIDATION =====
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorEl = document.getElementById('loginError');
+            const successEl = document.getElementById('loginSuccess');
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+
+            // Simple validation: any non-empty email with @ and password 6+ chars
+            if (email.includes('@') && password.length >= 6) {
+                successEl.classList.add('show');
+                setTimeout(() => {
+                    successEl.classList.remove('show');
+                    authModal.classList.remove('active');
+                    alert('Welcome back! You are now signed in.');
+                }, 1500);
+            } else {
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+            }
+        });
+
+        // ===== SIGNUP VALIDATION =====
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+            const errorEl = document.getElementById('signupError');
+            const successEl = document.getElementById('signupSuccess');
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+
+            if (name && email.includes('@') && password.length >= 6 && password === confirm) {
+                successEl.classList.add('show');
+                // Auto switch to login tab after short delay
+                setTimeout(() => {
+                    successEl.classList.remove('show');
+                    authTabs[0].click();
+                    document.getElementById('loginEmail').value = email;
+                    alert('Account created! You can now sign in.');
+                }, 1500);
+            } else {
+                if (password !== confirm) {
+                    document.getElementById('signupError').textContent = 'Passwords do not match.';
+                } else if (password.length < 6) {
+                    document.getElementById('signupError').textContent = 'Password must be at least 6 characters.';
+                } else {
+                    document.getElementById('signupError').textContent = 'Please fill in all fields correctly.';
+                }
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+            }
+        });
+
+        // ===== CONTACT FORM =====
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                btn.style.background = '#059669';
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2500);
+            }, 1500);
+
+            e.target.reset();
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!-- Replace this: -->
+<div class="photo-placeholder">
+    <i class="fas fa-user-secret"></i>
+</div>
+
+<!-- With this (uncomment): -->
+<img src="https://i.ibb.co/bRBy14F4/FB-IMG-1775399028226.jpg" alt="ilyas abdi ali">
+script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<div id="buttonDiv"></div>
+
+<script>
+function handleCredentialResponse(response) {
+  console.log("ID Token:", response.credential);
+  alert("Login Success!");
+}
+
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "495351321455-eisb5uq3un8fu9lghl10ifrm59r45j0f.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById("buttonDiv"),
+    { theme: "outline", size: "large" }
+  );
+};
+</script>
